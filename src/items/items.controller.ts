@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post } from '@nestjs/common';
-import { Item } from './item.model';
+import { Item } from '../entities/item.entity';
 import { ItemsService } from './items.service';
 import { CreateItemDto } from './dto/create-item.dto';
 
@@ -18,8 +18,8 @@ export class ItemsController {
     }
 
     @Post()
-    create(@Body() createItemDto: CreateItemDto): Item {
-        return this.itemService.create(createItemDto);
+    async create(@Body() createItemDto: CreateItemDto): Promise<Item> {
+        return await this.itemService.create(createItemDto);
     }
 
     @Patch(':id')
